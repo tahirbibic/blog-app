@@ -7,7 +7,7 @@ type Post = {
   title: string;
   content: string;
   author_id: number;
-  author: { id: number; email: string };
+  author: { id: number; username: string; email: string };
 };
 
 export default function Home() {
@@ -91,7 +91,12 @@ export default function Home() {
         {posts.map((post) => (
           <article key={post.id} className="bg-gray-800 p-6 rounded-lg shadow mb-4">
             <div className="flex justify-between items-start">
-              <h2 className="text-xl font-semibold">{post.title}</h2>
+              <h2
+                className="text-xl font-semibold cursor-pointer hover:text-blue-400"
+                onClick={() => router.push(`/posts/${post.id}`)}
+              >
+                {post.title}
+              </h2>
               {loggedIn && post.author.email === myEmail && (
                 <div className="flex gap-2 ml-4">
                   <button onClick={() => router.push(`/edit/${post.id}`)} className="text-blue-400 hover:text-blue-300 text-sm">
@@ -104,7 +109,7 @@ export default function Home() {
               )}
             </div>
             <p className="text-gray-300 mt-2">{post.content}</p>
-            <small className="text-gray-500">By {post.author.email}</small>
+            <small className="text-gray-500">By {post.author.username}</small>
           </article>
         ))}
       </div>

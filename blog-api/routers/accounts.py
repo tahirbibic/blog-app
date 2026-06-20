@@ -13,7 +13,7 @@ router = APIRouter(tags=["auth"])
 @router.post("/register", response_model=schemas.AccountResponse)
 def register(data: schemas.AccountCreate, db: Session = Depends(get_db)):
     hash = bcrypt.hashpw(data.pw.encode(), bcrypt.gensalt()).decode()
-    new = models.Account(email=data.email, pw_hash=hash)
+    new = models.Account(email=data.email, username=data.username, pw_hash=hash)
     db.add(new)
     db.commit()
     db.refresh(new)

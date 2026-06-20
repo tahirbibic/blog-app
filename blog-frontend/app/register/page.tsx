@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [pw, setPw] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
@@ -15,7 +16,7 @@ export default function Register() {
     const regRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, pw }),
+      body: JSON.stringify({ email, username, pw }),
     });
 
     if (!regRes.ok) {
@@ -55,6 +56,12 @@ export default function Register() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="w-full p-2 mb-4 bg-gray-700 border border-gray-600 rounded text-gray-100"
+        />
+        <input
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           className="w-full p-2 mb-4 bg-gray-700 border border-gray-600 rounded text-gray-100"
         />
         <input

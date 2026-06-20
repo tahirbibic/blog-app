@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine
 import models
-from routers import posts, users, accounts
+from routers import posts, users, accounts, comments
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -20,6 +20,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(comments.router)
 app.include_router(posts.router)
 app.include_router(users.router)
 app.include_router(accounts.router)
